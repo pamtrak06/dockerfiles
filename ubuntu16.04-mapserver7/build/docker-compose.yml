@@ -1,0 +1,13 @@
+web:
+  build: .
+  links:
+   - db
+  ports:
+   - "8989:80"
+  volume:
+  - ./data:/var/lib/postgresql
+db:
+  image: kartoza/postgis
+  environment:
+    USERNAME: postgis
+    PASS: postgis
