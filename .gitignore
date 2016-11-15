@@ -1,4 +1,5 @@
 _*
+*.old
 *.git
 *.DS_Store*
 */volume*
