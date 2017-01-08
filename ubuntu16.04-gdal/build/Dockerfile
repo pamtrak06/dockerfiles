@@ -2,18 +2,17 @@ FROM ubuntu:16.04
 
 MAINTAINER pamtrak06 <pamtrak06@gmail.com>
 
-# Install the application.
-ADD . /usr/local/src/gdal-docker/
-RUN apt-get update -y && \
-    apt-get install -y make && \
-    make -C /usr/local/src/gdal-docker install clean && \
-    apt-get purge -y make
+RUN apt-get update -y && apt-get install -y \ 
+    software-properties-common python-software-properties
 
-# Externally accessible data is by default put in /data
+# Install the application.
+RUN  add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
+RUN  apt-get update -y && apt-get install -y gdal-bin
+
 WORKDIR /data
 VOLUME ["/data"]
 
-# Execute the gdal utilities as nobody, not root
+# not root
 USER nobody
 
 # Output version and capabilities by default.
