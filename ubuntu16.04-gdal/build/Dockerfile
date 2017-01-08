@@ -1,12 +1,8 @@
-FROM ubuntu:16.04
+FROM pamtrak06/ubuntu16.04-gis
+USER root
 
 MAINTAINER pamtrak06 <pamtrak06@gmail.com>
 
-RUN apt-get update -y && apt-get install -y \ 
-    software-properties-common python-software-properties
-
-# Install the application.
-RUN  add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
 RUN  apt-get update -y && apt-get install -y gdal-bin
 
 WORKDIR /data
