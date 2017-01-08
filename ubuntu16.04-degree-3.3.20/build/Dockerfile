@@ -10,4 +10,7 @@ RUN unzip deegree-webservices-${DEGREE_VERSION}.zip
 
 WORKDIR /deegree-webservices-${DEGREE_VERSION}
 
+# not a root user
+USER nobody
+
 CMD [ "/deegree-webservices-${DEGREE_VERSION}/start-deegree-linux.sh" ]

@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y python python-dev libxml2-dev libxslt-d
 # Install OGC library
 RUN pip install OWSLib
 
+# not a root user
+USER nobody
+
 # Define default command
 CMD ["apachectl", "-D", "FOREGROUND"]
 

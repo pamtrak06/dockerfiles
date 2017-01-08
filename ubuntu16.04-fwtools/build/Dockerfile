@@ -9,3 +9,7 @@ RUN cd FWTools-2.0.6; ./install.sh
 
 ENV PATH=$PATH:/FWTools-linux-2.0.6/bin_safe
 WORKDIR /FWTools-2.0.6/bin_safe
+
+# not a root user
+USER nobody
+

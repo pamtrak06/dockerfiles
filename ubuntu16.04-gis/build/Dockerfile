@@ -5,3 +5,7 @@ RUN add-apt-repository ppa:ubuntugis/ppa && apt-get -y update
 #RUN echo "deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu xenial main" >> /etc/apt/sources.list
 #RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160 
 #RUN apt-get -y update
+
+# not a root user
+USER nobody
+

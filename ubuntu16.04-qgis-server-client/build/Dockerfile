@@ -1,5 +1,5 @@
 FROM pamtrak06/ubuntu16.04-qgis-server
-
+USER root
 RUN apt-get update -y && \
     apt-get install -y git software-properties-common
 # remove python 2.7 and install python 3.5
@@ -20,3 +20,5 @@ RUN apt-get install -y language-pack-en-base && \
 RUN git clone https://github.com/qgis/qgis-web-client.git
 WORKDIR /qgis-web-client
 #RUN ./install.sh
+# not a root user
+USER nobody

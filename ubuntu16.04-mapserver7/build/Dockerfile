@@ -1,4 +1,5 @@
 FROM pamtrak06/ubuntu16.04-apache2-python
+USER root
 
 MAINTAINER pamtrak06 <pamtrak06@gmail.com>
 
@@ -94,6 +95,9 @@ RUN ln -s /usr/local/bin/mapserv /usr/lib/cgi-bin/mapserv
 #VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
 
 # Expose ports: override for needs
+
+# not a root user
+USER nobody
 
 # Define default command
 CMD ["apachectl", "-D", "FOREGROUND"]

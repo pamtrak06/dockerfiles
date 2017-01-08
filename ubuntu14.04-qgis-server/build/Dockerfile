@@ -18,3 +18,6 @@ RUN a2ensite 001-qgis-server
 
 RUN a2enmod fcgid
 RUN a2enconf serve-cgi-bin
+
+# not a root user
+USER nobody

@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install -y python python-dev libxml2-dev libxslt-d
 RUN pip install OWSLib
 
 # Define default command
-CMD ["apachectl", "-D", "FOREGROUND"]
+CMD [ "apachectl", "-D", "FOREGROUND" ]
 
 # Expose ports 80/443... : to be override for needs
+EXPOSE 80
 
+USER nobody

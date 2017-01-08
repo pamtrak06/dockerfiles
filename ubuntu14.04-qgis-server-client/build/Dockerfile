@@ -6,3 +6,6 @@ RUN apt-get update -y && \
 RUN git clone https://github.com/qgis/qgis-web-client.git
 WORKDIR /qgis-web-client
 #RUN ./install.sh
+
+# not a root user
+USER nobody

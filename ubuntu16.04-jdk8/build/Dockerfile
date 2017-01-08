@@ -9,3 +9,6 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --no-install-recommends oracle-java8-installer && \
     rm -rf /var/lib/apt/lists/*
+
+# not a root user
+USER nobody

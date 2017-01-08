@@ -11,3 +11,5 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 CMD ["apachectl", "-D", "FOREGROUND"]
 
 # Expose ports 80/443... : to be override for needs
+
+USER nobody

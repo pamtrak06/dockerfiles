@@ -106,5 +106,8 @@ VOLUME ["/var/www", "/var/log/apache2", "/etc/apache2"]
 # Expose ports
 EXPOSE 22 80 443
 
+# not a root user
+USER nobody
+
 # Define default command
 CMD ["apachectl", "-D", "FOREGROUND"]
