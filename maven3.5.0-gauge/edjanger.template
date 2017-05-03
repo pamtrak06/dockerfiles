@@ -91,7 +91,7 @@ published_ports="${app_published_ports}"
 #run_other_options="${app_run_other_options}"
 
 #command_args:bash command(s) to run
-#command_args="${app_command_args}"
+command_args="${app_command_args}"
 
 #command_run:bash command(s) to run
 #command_run="${app_command_run}"

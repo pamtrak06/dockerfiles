@@ -8,4 +8,5 @@ RUN wget https://github.com/getgauge/gauge/releases/download/v${GAUGE_VERSION}/g
 RUN unzip /tmp/gauge-${GAUGE_VERSION}-linux.x86_64.zip -d /tmp/gauge
 RUN cd /tmp/gauge && ./install.sh
 RUN gauge --install java && gauge --install html-report && gauge --install xml-report
+CMD [ "gauge", "-v" ]
     
