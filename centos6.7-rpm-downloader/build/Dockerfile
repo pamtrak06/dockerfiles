@@ -1,5 +1,5 @@
 FROM centos:centos6.7
-RUN yum -y update && yum -y install tree
+RUN yum -y update && yum -y install tree yum-utils
 RUN mkdir /scripts
 ADD *.sh /scripts/
 RUN chmod a+x /scripts/*.sh
@@ -13,6 +13,9 @@ WORKDIR $RPM_PATH
 # Path where rmp and their dependencies are downloaded
 VOLUME $RPM_PATH
 
+# Resolution mode
+ARG RESOLVE_MODE
+
 # Recursive mode
 ARG RECURSIVE_MODE
 ARG RECURSIVE_MAX_LEVEL=1
@@ -25,6 +28,10 @@ ENV YUMDOWNLOADER_OPTIONS=$YUMDOWNLOADER_OPTIONS
 # Debug mode
 ARG TRACE_ONLY_MODE
 
-# List of packages
+# List of packages in env. variable
 ARG RPM_LIST
+
+# List of packages in file
+ARG FILE_LIST
+
 CMD [ "bash", "-c", "/scripts/docker-entrypoint.sh" ]

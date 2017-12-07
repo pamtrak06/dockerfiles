@@ -10,22 +10,53 @@ function rpm_local_install {
   done
 }
 
-# Download rpm
 function rpm_download {
+  local rpm=$1
+  local rpmpath=$2
+  local level=$3
+
+  echo "INFO: download package \"$rpm\" in path $rpmpath/$rpm..."
+  [ ! -f "$rpmpath/$rpm" ] && mkdir -p $rpmpath/$rpm
+
+  if [ -n "$RESOLVE_MODE" ]; then
+    for dep in $(repoquery --requires --recursive --resolve $rpm); do
+      yumdownloader $YUMDOWNLOADER_OPTIONS $dep --destdir=$rpmpath/$rpm
+    done
+  else
+    [ -z "$TRACE_ONLY_MODE" ] && \
+      yumdownloader $YUMDOWNLOADER_OPTIONS $rpm --destdir=$rpmpath/$rpm
+
+    if [ -n "$RECURSIVE_MODE" ]; then
+      [ $(($level)) -le $(($RECURSIVE_MAX_LEVEL)) ] && \
+        echo "INFO: process level ($level)/($RECURSIVE_MAX_LEVEL)..."  && \
+        rpm_download_dependencies $rpm $rpmpath/$rpm/dependencies $level
+    fi
+  fi
+
+}
+
+# Download rpm from file list
+function rpm_download_from_file {
+  local rpmfile=$1
+  local rpmpath=$2
+  local level=$3
+
+  if [ -n "$rpmfile" ]; then
+    for rpm in $(cat $rpmfile|awk '{print $1}'); do
+      rpm_download $rpm $rpmpath $level
+    done
+  fi
+
+}
+
+# Download rpm from varaible list
+function rpm_download_from_list {
   local rpmlist=$1
   local rpmpath=$2
   local level=$3
+  
   for rpm in $(echo $rpmlist); do
-    
-    echo "INFO: download package \"$rpm\" in path $rpmpath/$rpm..."
-    [ ! -f "$rpmpath/$rpm" ] && mkdir -p $rpmpath/$rpm
-    [ -z "$TRACE_ONLY_MODE" ] && \
-        yumdownloader $YUMDOWNLOADER_OPTIONS $rpm --destdir=$rpmpath/$rpm
-
-    [ -n "$RECURSIVE_MODE" ] && \
-      [ $(($level)) -le $(($RECURSIVE_MAX_LEVEL)) ] && \
-        echo "INFO: process level ($level)/($RECURSIVE_MAX_LEVEL)..."  && \
-        rpm_download_dependencies $rpm $rpmpath/$rpm/deps $level
+    rpm_download $rpm $rpmpath $level
   done
 }
 
