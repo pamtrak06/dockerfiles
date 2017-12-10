@@ -30,12 +30,15 @@ Other potentiel monitoring :
 
 Following command simulate download package wget and curl with recursivity (max 2 levels) in shared folder $PWD/volumes/packages. Container will be deleted after process.
 
+```bash
 docker run -d --name rpm-downloader_1 -v $PWD/volumes/packages:/packages -e RPM_LIST="wget curl" -e RECURSIVE_MODE=true -e TRACE_ONLY_MODE=true -e RECURSIVE_MAX_LEVEL=2 --rm pamtrak06/centos7-rpm-downloader && docker logs pm-downloader_1
+```
 
 ### 2. Download wget and curl rpm with their dependencies to max 2 recursive level.
 
 Following command download really package wget and curl with recursivity (max 2 levels) in shared folder $PWD/volumes/packages. Container will be deleted after process.
 
+```bash
 docker run -d --name rpm-downloader_1 -v $PWD/volumes/packages:/packages -e RPM_LIST="wget curl" -e RECURSIVE_MODE=true -e RECURSIVE_MAX_LEVEL=2 --rm pamtrak06/centos7-rpm-downloader
 
 .
@@ -76,13 +79,13 @@ docker run -d --name rpm-downloader_1 -v $PWD/volumes/packages:/packages -e RPM_
     `-- wget-1.14-15.el7_4.1.x86_64.rpm
 
 18 directories, 17 files
-
+```
 
 ## Configuration
 
 Following environment variables re available :
-- RPM_LIST, default empty, list of package to be downloaded
-- RECURSIVE_MODE: allow recursive mode to retrieve dependencies of a package, default not set
+- RPM_LIST, default empty, list of package to be downloaded, possible values : <package names list> 
+- RECURSIVE_MODE: allow recursive mode to retrieve dependencies of a package, default not set, possible value : true
 - RECURSIVE_MAX_LEVEL=1, max level for the recursive process, default to 1 dependency level
-- YUMDOWNLOADER_OPTIONS="", yum downloader options, default empty
-- TRACE_ONLY_MODE, default not set,  debug mode to show result without really download package
+- YUMDOWNLOADER_OPTIONS="", [yum downloader options](https://github.com/rpm-software-management/yum-utils/blob/master/yumdownloader.py), default empty, possible values : --destdir, --urls, --resolve, --source, --archlist
+- TRACE_ONLY_MODE, default not set,  debug mode to show result without really download package, possible value : true
