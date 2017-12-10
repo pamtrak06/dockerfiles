@@ -10,7 +10,7 @@ docker pull pamtrak06/centos7-rpm-downloader
 
 ## Usage
 
-###. 0 Knowing when process is finished
+### 1. Knowing when process is finished
 
 File tree.log is present when the process is finished
 watch $PWD/volumes/packages
@@ -26,7 +26,7 @@ Other potentiel monitoring :
 - watch tree volumes/packages
 
 
-### 1. Just make a test, no download.
+### 2. Just make a test, no download.
 
 Following command simulate download package wget and curl with recursivity (max 2 levels) in shared folder $PWD/volumes/packages. Container will be deleted after process.
 
@@ -34,7 +34,7 @@ Following command simulate download package wget and curl with recursivity (max 
 docker run -d --name rpm-downloader_1 -v $PWD/volumes/packages:/packages -e RPM_LIST="wget curl" -e RECURSIVE_MODE=true -e TRACE_ONLY_MODE=true -e RECURSIVE_MAX_LEVEL=2 --rm pamtrak06/centos7-rpm-downloader && docker logs pm-downloader_1
 ```
 
-### 2. Download wget and curl rpm with their dependencies to max 2 recursive level.
+### 3. Download wget and curl rpm with their dependencies to max 2 recursive level.
 
 Following command download really package wget and curl with recursivity (max 2 levels) in shared folder $PWD/volumes/packages. Container will be deleted after process.
 
