@@ -33,5 +33,7 @@ ARG RPM_LIST
 
 # List of packages in file
 ARG FILE_LIST
+# Item index of packages in file
+ARG RPM_FILE_ITEM_INDEX
 
 CMD [ "bash", "-c", "/scripts/docker-entrypoint.sh" ]

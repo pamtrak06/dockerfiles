@@ -10,6 +10,25 @@ function rpm_local_install {
   done
 }
 
+# Local installation of rpm (no internet download) from a file list of rpm to respect order
+function rpm_local_install_from_file {
+    local rpmfile=$1
+    local rpmpath=$2
+    local itemidx=$3
+
+    [ -z "$rpmpath" ] && rpmpath=$PWD
+	[ -z "$itemidx" ] && itemidx=1
+
+    if [ -n "$rpmfile" ]; then
+      eval_string=$(echo "cat \$rpmfile|awk '{print \$$itemidx}'")
+      for rpm in $(eval $eval_string); do
+        echo "INFO: install rpm: $rpm..."
+        rpmfile=$(find ${rpmpath} -name "$rpm" -type f)
+        yum --disablerepo='*' --disableplugin='*' install -y $rpmfile
+      done
+    fi
+}
+
 function rpm_download {
   local rpm=$1
   local rpmpath=$2
@@ -40,9 +59,15 @@ function rpm_download_from_file {
   local rpmfile=$1
   local rpmpath=$2
   local level=$3
+  local itemidx=$4
 
+  [ -z "$level" ] && level=1
+  [ -z "$rpmpath" ] && rpmpath=$PWD
+  [ -z "$itemidx" ] && itemidx=1
+  
   if [ -n "$rpmfile" ]; then
-    for rpm in $(cat $rpmfile|awk '{print $1}'); do
+    eval_string=$(echo "cat \$rpmfile|awk '{print \$$itemidx}'")
+    for rpm in $(eval $eval_string); do
       rpm_download $rpm $rpmpath $level
     done
   fi

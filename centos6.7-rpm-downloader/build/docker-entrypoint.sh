@@ -2,7 +2,7 @@
 . /scripts/rpm_functions.sh
 
 if [ -n "$RPM_FILE" ]; then
-  rpm_download_from_file "$RPM_FILE" /packages 1 
+  rpm_download_from_file "$RPM_FILE" /packages 1 "$RPM_FILE_ITEM_INDEX"
 elif [ -n "$RPM_LIST" ]; then
   rpm_download_from_list "$RPM_LIST" /packages 1
 else
